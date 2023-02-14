@@ -17,6 +17,7 @@ public class PersonService {
     @Autowired
     private PersonRepository repository;
 
+    //metodo para obtener todos los registros
     @Transactional(readOnly = true)
     public CustomResponse<List<Person>> getAll() {
         return new CustomResponse<>(
@@ -45,6 +46,17 @@ public class PersonService {
     //     );
     // }
 
+    //metodo para obetener a una persona
+    @Transactional(readOnly = true)
+    public CustomResponse<Person>getOne(Long id){
+        return new CustomResponse<>(
+                this.repository.findById(id).get(),
+                false,
+                200,
+                "ok"
+        );
+    }
+
     @Transactional(rollbackFor = {SQLException.class})
     public CustomResponse<Person> insert(Person person) {
         Optional<Person> exists = this.repository.findByCurp(person.getCurp());
@@ -61,6 +73,46 @@ public class PersonService {
                 false,
                 200,
                 "Persona registrada correctamente"
+        );
+    }
+
+    //metodo para actualizar una categoria
+    @Transactional(rollbackFor = {SQLException.class})
+    public CustomResponse<Person> update(Person person){
+        if (!this.repository.existsById(person.getId())){
+            return new CustomResponse<>(
+                    null,
+                    true,
+                    400,
+                    "La persona no existe"
+            );
+        }
+        return new CustomResponse<>(
+                this.repository.saveAndFlush(person),
+                false,
+                200,
+                "Persona actualizada correctamente"
+        );
+    }
+
+    //metodo para eliminar (cambiar status) de una persona
+    @Transactional(rollbackFor = {SQLException.class})
+    public CustomResponse<Boolean> changeStatus(Person person){
+        if (!this.repository.existsById(person.getId())){
+            return new CustomResponse<>(
+                    null,
+                    true,
+                    400,
+                    "La persona no existe"
+            );
+        }
+        return new CustomResponse<>(
+                this.repository.updateStatusById(
+                        person.getStatus(), person.getId()
+                ),
+                false,
+                200,
+                "Persona actualizada correctamente"
         );
     }
 }

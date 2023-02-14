@@ -20,6 +20,7 @@ public class PersonController {
     @Autowired
     private PersonService service;
 
+    //obtener todos los registros de personas
     @GetMapping("/")
     public ResponseEntity<CustomResponse<List<Person>>> getAll(){
         return new ResponseEntity<>(
@@ -27,13 +28,54 @@ public class PersonController {
                 HttpStatus.OK
         );
     }
+    //obtener un solo registro de personas
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomResponse<Person>> getOne(@PathVariable("id") Long id){
+        return new ResponseEntity<>(
+                this.service.getOne(id),
+                HttpStatus.OK
+        );
+    }
 
+    //insertar a una persona
     @PostMapping
     public ResponseEntity<CustomResponse<Person>> insert(
-        @RequestBody PersonDto personDto){
+             @RequestBody PersonDto personDto, @Valid BindingResult result){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<>(
             this.service.insert(personDto.getPerson()),
             HttpStatus.CREATED
+        );
+    }
+
+    //modificar a una persona
+    @PutMapping("/")
+    public ResponseEntity<CustomResponse<Person>> update(@RequestBody PersonDto personDto, @Valid BindingResult result){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(
+                    null,
+                    HttpStatus.BAD_REQUEST
+            );
+        }
+        return new ResponseEntity<>(
+                this.service.update(personDto.getPerson()),
+                HttpStatus.CREATED
+        );
+    }
+
+    //metodo para modificar el status de una persona
+    @PatchMapping("/")
+    public ResponseEntity<CustomResponse<Boolean>> enableOrDisable(
+            @RequestBody PersonDto personDto, @Valid BindingResult result
+    ){
+        if (result.hasErrors()){
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(
+                this.service.changeStatus(personDto.getPerson()),
+                HttpStatus.OK
         );
     }
 

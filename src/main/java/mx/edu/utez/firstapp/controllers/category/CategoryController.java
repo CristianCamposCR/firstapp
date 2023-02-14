@@ -21,7 +21,7 @@ public class CategoryController {
     private CategoryService service;
 
     @GetMapping("/")
-    public ResponseEntity<CustomResponse> getAll(){
+    public ResponseEntity<CustomResponse<List<Category>>> getAll(){
         return new ResponseEntity<>(this.service.getAll(), HttpStatus.OK);
     }
     @GetMapping("/{id}")
@@ -42,7 +42,7 @@ public class CategoryController {
     }
 
     @PutMapping ("/")
-    public ResponseEntity<CustomResponse> update(@RequestBody CategoryDto categoryDto, @Valid BindingResult result){
+    public ResponseEntity<CustomResponse<Category>> update(@RequestBody CategoryDto categoryDto, @Valid BindingResult result){
         if(result.hasErrors()){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
@@ -50,11 +50,11 @@ public class CategoryController {
     }
 
     @PatchMapping  ("/")
-    public ResponseEntity<CustomResponse> enableOrDisable(@RequestBody CategoryDto categoryDto, @Valid BindingResult result){
+    public ResponseEntity<CustomResponse<Boolean>> enableOrDisable(@RequestBody CategoryDto categoryDto, @Valid BindingResult result){
         if(result.hasErrors()){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
-        return new ResponseEntity<>(this.service.changeStatus(categoryDto.getCategory()), HttpStatus.CREATED);
+        return new ResponseEntity<>(this.service.changeStatus(categoryDto.getCategory()), HttpStatus.OK);
     }
 
 
