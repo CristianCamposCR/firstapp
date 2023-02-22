@@ -38,7 +38,7 @@ public class PersonController {
     }
 
     //insertar a una persona
-    @PostMapping
+    @PostMapping("/")
     public ResponseEntity<CustomResponse<Person>> insert(
              @RequestBody PersonDto personDto, @Valid BindingResult result){
         if (result.hasErrors()){
