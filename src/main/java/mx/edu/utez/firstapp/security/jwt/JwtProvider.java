@@ -19,8 +19,8 @@ public class JwtProvider {
     private int expiration;
 
     public String generateToken(Authentication authentication){
-        UserAuth userAuth = (UserAuth) authentication.getPrincipal();//obtenemos al usuario que esta en la sesion
-        return Jwts.builder().setSubject(userAuth.getUsername()).setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime()+expiration*1000L)).signWith(SignatureAlgorithm.HS512, secret).compact();
+        UserAuth userAuth = (UserAuth) authentication.getPrincipal();//obtenemos al usuario que esta intentando entrar, lo convertimos a un userAuth que es un userdetails
+        return Jwts.builder().setSubject(userAuth.getUsername()).setIssuedAt(new Date()).setExpiration(new Date(new Date().getTime()+expiration*1000L)).signWith(SignatureAlgorithm.HS512, secret).compact();//forma de encriptacion
     }
 
     public String getUsernameFromToken(String token){

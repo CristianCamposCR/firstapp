@@ -13,7 +13,7 @@ public class UserService {
     UserRepository repository;
     @Transactional(readOnly = true)
     public User getUserByUsername(String username){
-        return repository.findOneByUsername(username);
+        return repository.findByUsername(username);
     }
 
 }

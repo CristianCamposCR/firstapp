@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 //clase para iniciar sesion
-public class UserAuth implements UserDetails {
+public class UserAuth implements UserDetails {//conexion entre springsecurity y nuestro auth
     private String username;
     private  String password;
     private Person person;
@@ -27,6 +27,8 @@ public class UserAuth implements UserDetails {
     }
 
     public static UserAuth build(User user){
+
+        //obtenemos todos los roles de usuario y los convierte a roles de spring security
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
         return new UserAuth(user.getUsername(), user.getPassword(), user.getPerson(), authorities);
     }
@@ -34,7 +36,7 @@ public class UserAuth implements UserDetails {
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities;
-    }
+    }//reconoce nuestros roles como propios
 
     @Override
     public String getPassword() {

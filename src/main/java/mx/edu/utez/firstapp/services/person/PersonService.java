@@ -2,8 +2,11 @@ package mx.edu.utez.firstapp.services.person;
 
 import mx.edu.utez.firstapp.models.person.Person;
 import mx.edu.utez.firstapp.models.person.PersonRepository;
+import mx.edu.utez.firstapp.models.user.User;
+import mx.edu.utez.firstapp.models.user.UserRepository;
 import mx.edu.utez.firstapp.utils.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,11 @@ import java.util.Optional;
 public class PersonService {
     @Autowired
     private PersonRepository repository;
+    @Autowired
+    private PasswordEncoder encoder;
+    @Autowired
+    private UserRepository userRepository;
+
 
     //metodo para obtener todos los registros
     @Transactional(readOnly = true)
@@ -57,6 +65,7 @@ public class PersonService {
         );
     }
 
+    //metodo para insertar a una persona
     @Transactional(rollbackFor = {SQLException.class})
     public CustomResponse<Person> insert(Person person) {
         Optional<Person> exists = this.repository.findByCurp(person.getCurp());
@@ -68,6 +77,18 @@ public class PersonService {
                     "La persona ya se encuentra registrada"
             );
         }
+        User userExists = this.userRepository.findByUsername(person.getUser().getUsername());
+        if (userExists != null) {
+            return new CustomResponse<>(
+                    null,
+                    true,
+                    400,
+                    "El usuario ya se encuentra registrada"
+            );
+        }
+        person.getUser().setPassword(
+                encoder.encode(person.getUser().getPassword())
+        );
         return new CustomResponse<>(
                 this.repository.saveAndFlush(person),
                 false,

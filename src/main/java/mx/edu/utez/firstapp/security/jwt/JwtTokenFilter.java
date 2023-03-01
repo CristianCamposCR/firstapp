@@ -31,17 +31,18 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             if (token != null && provider.validateToken(token)){
                 String username = provider.getUsernameFromToken(token);
                 UserDetails userDetails = service.loadUserByUsername(username);
-                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities() );
+                UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities() );//permite autenticar un usuario
+
                 SecurityContextHolder.getContext().setAuthentication(auth);
             }
         }catch (Exception e){
             LOGGER.error("Error filter -> " + e.getMessage());
         }
-        chain.doFilter(request, response);
+        chain.doFilter(request, response);//controller ,
     }
 
     public String getToken(HttpServletRequest request){
-        String header = request.getHeader("Authorization");
+        String header = request.getHeader("Authorization");//se pueden crear cabeceras
         if (header != null && header.startsWith("Bearer"))
             return header.replace("Bearer ", "");
         return null;
