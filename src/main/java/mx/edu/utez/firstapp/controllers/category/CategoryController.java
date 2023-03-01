@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-fisrtapp/category")
+@RequestMapping("/api-firstapp/category")
 @CrossOrigin(origins = {"*"})
 public class CategoryController {
     @Autowired
