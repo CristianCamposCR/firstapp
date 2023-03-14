@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-firstapp/subcategory")
+@RequestMapping("/api-market/subcategory")
 @CrossOrigin(origins = {"*"})
 public class SubcategoryController {
     @Autowired
@@ -66,7 +66,7 @@ public class SubcategoryController {
     }
     //Borrar (actualizar status) de subcategories
     @PatchMapping("/")
-    public ResponseEntity<CustomResponse<Boolean>> changeStatus(@RequestBody SubcategoryDto subcategoryDto, @Valid BindingResult result){
+    public ResponseEntity<CustomResponse<Integer>> changeStatus(@RequestBody SubcategoryDto subcategoryDto, @Valid BindingResult result){
         if (result.hasErrors()){
             return new ResponseEntity<>(
                     null,

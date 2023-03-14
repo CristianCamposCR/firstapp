@@ -9,7 +9,7 @@ import mx.edu.utez.firstapp.models.category.Category;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "subcategories")
 //Estas cuatro vienen de lombok
 @AllArgsConstructor
 @NoArgsConstructor

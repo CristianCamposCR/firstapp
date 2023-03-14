@@ -43,7 +43,7 @@ public class SubcategoryService {
     }
 
     @Transactional
-    public CustomResponse<Boolean> changeStatus(SubCategory subcategory){
+    public CustomResponse<Integer> changeStatus(SubCategory subcategory){
         if(!this.repository.existsById(subcategory.getId()))
             return new CustomResponse<>(null, true, 400, "La subcategoria no existe");
         return new CustomResponse<>(this.repository.updateStatusById(subcategory.getStatus(), subcategory.getId()), false, 200, "Subcategoria registrada correctamente");

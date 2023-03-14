@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-firstapp/person/")
+@RequestMapping("/api-market/person/")
 @CrossOrigin(origins = {"*"})
 public class PersonController {
     @Autowired

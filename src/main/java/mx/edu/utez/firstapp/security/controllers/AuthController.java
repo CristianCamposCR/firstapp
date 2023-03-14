@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api-firstapp/auth")
+@RequestMapping("/api-market/auth")
 @CrossOrigin(origins = {"*"})
 public class AuthController {
     @Autowired

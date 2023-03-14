@@ -19,13 +19,13 @@ public class SubcategoryDto {
    @Size(min = 3, max = 50)
     private String name;
     private Boolean status;
-    private Category category;
+    private Long category_id;
     public SubCategory getSubategory(){
        return new SubCategory(
                getId(),
                getName(),
                getStatus(),
-               getCategory()
+               new Category(category_id,"",false, null)
 
        );
     }

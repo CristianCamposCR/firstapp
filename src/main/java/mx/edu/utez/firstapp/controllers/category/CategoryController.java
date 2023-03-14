@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api-firstapp/category")
+@RequestMapping("/api-market/category")
 @CrossOrigin(origins = {"*"})
 public class CategoryController {
     @Autowired
@@ -50,7 +50,7 @@ public class CategoryController {
     }
 
     @PatchMapping  ("/")
-    public ResponseEntity<CustomResponse<Boolean>> enableOrDisable(@RequestBody CategoryDto categoryDto, @Valid BindingResult result){
+    public ResponseEntity<CustomResponse<Integer>> enableOrDisable(@RequestBody CategoryDto categoryDto, @Valid BindingResult result){
         if(result.hasErrors()){
             return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }

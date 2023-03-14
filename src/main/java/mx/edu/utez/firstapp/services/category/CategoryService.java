@@ -42,7 +42,7 @@ public class CategoryService {
     }
     //metodo para eliminar (cambiar es status) de una categoria
     @Transactional()
-    public CustomResponse<Boolean> changeStatus(Category category) {
+    public CustomResponse<Integer> changeStatus(Category category) {
         if (!this.repository.existsById(category.getId()))
             return new CustomResponse<>(null, true, 400, "La categoria no existe");
         return new CustomResponse<>(this.repository.updateStatusById(category.getStatus(), category.getId()), false, 200, "Categoria status actualizado correctamente");
