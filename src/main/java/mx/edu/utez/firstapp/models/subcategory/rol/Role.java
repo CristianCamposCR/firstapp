@@ -1,4 +1,4 @@
-package mx.edu.utez.firstapp.models.rol;
+package mx.edu.utez.firstapp.models.subcategory.rol;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;

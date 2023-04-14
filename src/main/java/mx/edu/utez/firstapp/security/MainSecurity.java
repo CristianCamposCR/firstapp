@@ -59,7 +59,7 @@ public class MainSecurity extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api-market/auth/**", "/api-market/contact/**").permitAll()
 //                .antMatchers("/api-firstapp/category/*").permitAll() descomentar para dar acceso publico
                 .antMatchers(HttpMethod.POST,"/api-market/user/").permitAll()
-                .antMatchers(HttpMethod.GET, "/api-market/product/*").permitAll()
+                .antMatchers(HttpMethod.GET, "/api-market/product/*", "/api-market/product/loadfile/*").permitAll()
                 .antMatchers(HttpMethod.POST, "/api-market/person/").permitAll()
                 .anyRequest().authenticated()
                 .and()

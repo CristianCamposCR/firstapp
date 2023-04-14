@@ -25,7 +25,8 @@ public class SubcategoryDto {
                getId(),
                getName(),
                getStatus(),
-               new Category(category_id,"",false, null)
+               new Category(category_id,"",false, null),
+               null
 
        );
     }

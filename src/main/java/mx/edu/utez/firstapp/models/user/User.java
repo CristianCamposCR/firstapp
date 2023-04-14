@@ -6,7 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import mx.edu.utez.firstapp.models.person.Person;
-import mx.edu.utez.firstapp.models.rol.Role;
+import mx.edu.utez.firstapp.models.subcategory.rol.Role;
 
 import javax.persistence.*;
 import java.util.Set;
